@@ -4,39 +4,13 @@ import sys
 import requests
 from bs4 import BeautifulSoup
 import time
-def namu_parse() :
+def namu_parse(urls) :
 
-	url = requests.get("https://namu.wiki/edit/%EC%88%98%EC%95%84%EB%B2%A0")
+	url = requests.get(urls)
 	soup = BeautifulSoup(url.text, "lxml")
-
-
 	namu = soup.find("textarea", { "class" : "form-control" })
 
-	namu_text = namu.text
-	namu_cnt = namu_text.count(']')
-	namu_cnt2 = namu_text.find("[*")
-	namu_cnt2 = namu_text.find('[*(*)')
-	namu_text = namu_text.replace("[*","각주")
-	namu_text = namu_text.replace("<<","[")
-	namu_text = namu_text.replace(">>","]")
-	namu_text = namu_text.replace("[[","훌라")
-	namu_text = namu_text.replace("]]","라훌")
-
-	namu_text = namu_text.replace("[","[[")
-
-	namu_text = namu_text.replace("]","]]")
-	namu_text = namu_text.replace("\"]]","]]")
-	namu_text = namu_text.replace("[[wiki:\"","[[")
-
-	namu_text = namu_text.replace("훌라목차라훌","[목차]")
-	namu_text = namu_text.replace("훌라각주라훌","[각주]")
-	namu_text = namu_text.replace("훌라","[[")
-	namu_text = namu_text.replace("라훌","]]")
-	namu_text = namu_text.replace("각주","[*")
 	
-	print (namu_cnt2)
-	print (namu_text[namu_cnt2+2:namu_cnt2+100])
-
 
 
 
